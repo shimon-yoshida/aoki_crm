@@ -154,8 +154,8 @@ return [
     */
 
     'attributes' => [
-        'name' => '姓',
-        'first_name' => '名',
+        'title' => '件名',
+        'content' => '本文',
         'furigana' => '姓（ふりがな）',
         'first_furigana' => '名（ふりがな）',
         'mobile' => '電話番号',
