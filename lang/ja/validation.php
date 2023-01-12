@@ -156,16 +156,9 @@ return [
     'attributes' => [
         'title' => '件名',
         'content' => '本文',
-        'furigana' => '姓（ふりがな）',
-        'first_furigana' => '名（ふりがな）',
-        'mobile' => '電話番号',
-        'email' => 'メールアドレス',
-        'customer_id' => '名前',
-        'support_school' => '担当者の所属学校',
-        'support_campus' => '担当者の所属キャンパス',
-        'support_staff' => '担当者名',
-        'responce' => '記録',
-        'infomation_id' => '説明会',
+        'name' => '名',
+        'memo' => 'メモ',
+        'price' => '料金',
     ],
 
 ];
