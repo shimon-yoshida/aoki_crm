@@ -21,6 +21,7 @@
         "vue": "^3.2.31"
     },
     "dependencies": {
-        "sequelize": "^6.25.3"
+        "sequelize": "^6.25.3",
+        "yubinbango-core2": "^0.6.3"
     }
 }
