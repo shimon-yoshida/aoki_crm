@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\InertiaTestController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\PurchaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,10 @@ Route::resource('items', ItemController::class)
 Route::resource('customers', CustomerController::class)
 ->middleware(['auth', 'verified']);
 
+Route::resource('purchases', PurchaseController::class)
+->middleware(['auth', 'verified']);
+
+
 Route::get('/inertia-test', function () {
     return Inertia::render('InertiaTest');
 }
@@ -39,6 +44,7 @@ Route::get('/inertia/create',[InertiaTestController::class,'create'])->name('ine
 Route::post('/inertia',[InertiaTestController::class,'store'])->name('inertia.store');
 Route::get('/inertia/show/{id}',[InertiaTestController::class,'show'])->name('inertia.show');
 Route::delete('/inertia/{id}',[InertiaTestController::class,'delete'])->name('inertia.delete');
+
 
 
 Route::get('/', function () {
