@@ -7,6 +7,7 @@ use App\Http\Controllers\InertiaTestController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\AnalysisController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +46,7 @@ Route::post('/inertia',[InertiaTestController::class,'store'])->name('inertia.st
 Route::get('/inertia/show/{id}',[InertiaTestController::class,'show'])->name('inertia.show');
 Route::delete('/inertia/{id}',[InertiaTestController::class,'delete'])->name('inertia.delete');
 
-
+Route::get('analysis', [AnalysisController::class, 'index'])->name('analysis');
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
