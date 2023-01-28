@@ -1,25 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Services;
 
-use Illuminate\Http\Request;
-use Inertia\Inertia;
-use App\Models\Order;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
-class AnalysisController extends Controller
+class RFMService
 {
-    public function index()
+    public static function rfm($subQuery, $rfmPrms)
     {
 
-        $startDate = '2023-01-01';
-        $endDate = '2023-01-05';
-
-        // 1. 購買ID毎にまとめる
-        $subQuery = Order::betweenDate(
-            $startDate,
-            $endDate
-        )
+        $subQuery = $subQuery
             ->groupBy('id')
             ->selectRaw('id, customer_id, customer_name, SUM(subtotal) as totalPerPurchase, created_at');
 
@@ -32,10 +23,6 @@ class AnalysisController extends Controller
 
         // 4. 会員毎のRFMランクを計算
 
-        $rfmPrms = [
-            14, 28, 60, 90, 7, 5, 3, 2, 300000, 200000, 100000,
-            30000
-        ];
 
         $subQuery = DB::table($subQuery)
             ->selectRaw('customer_id, customer_name,
@@ -60,10 +47,12 @@ class AnalysisController extends Controller
                 else 1 end as m', $rfmPrms);
 
         // dd($subQuery);
+        Log::debug($subQuery->get());
+
 
         // 5.ランク毎の数を計算する
 
-        $total = DB::table($subQuery)->count();
+        $totals = DB::table($subQuery)->count();
 
         $rCount = DB::table($subQuery)
             ->rightJoin('ranks', 'ranks.rank', '=', 'r')
@@ -112,8 +101,6 @@ class AnalysisController extends Controller
             ->orderBy('rRank', 'desc')
             ->get();
 
-        // dd($data);
-
-        return Inertia::render('Analysis');
+        return [$data, $totals, $eachCount];
     }
 }
